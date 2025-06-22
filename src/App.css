@@ -1,0 +1,37 @@
+.container {
+  text-align: center;
+  padding: 3rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.options {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.option-btn {
+  padding: 12px 24px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.option-btn:hover {
+  background-color: #0056b3;
+}
+
+.option-btn.selected {
+  background-color: #28a745;
+}
+
+.result-msg {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #333;
+}
