@@ -1,37 +1,180 @@
-.container {
-  text-align: center;
-  padding: 3rem;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.options {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.option-btn {
-  padding: 12px 24px;
-  border: none;
-  background-color: #007bff;
+.submit-btn {
+  margin-top: 10px;
+  padding: 10px 16px;
+  background-color: #3f51b5;
   color: white;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s;
+  font-weight: bold;
 }
 
-.option-btn:hover {
-  background-color: #0056b3;
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+
+
+
+
+
+/* Reset & base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #eef2f7;
+  color: #2c3e50;
+}
+
+/* App layout */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+/* Voting Card */
+.voting-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Headings */
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1e293b;
+}
+
+h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  color: #334155;
+}
+
+/* Input */
+.name-input {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background: #f9fafb;
+  color: #111827;
+}
+
+/* Options Grid */
+.options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Option Button */
+.option-btn {
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background: #dbeafe;
+  color: #1e3a8a;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, transform 0.2s;
+}
+
+.option-btn:hover:not(:disabled) {
+  background: #bfdbfe;
+  transform: translateY(-2px);
 }
 
 .option-btn.selected {
-  background-color: #28a745;
+  background: #3b82f6;
+  color: #ffffff;
 }
 
+/* Vote Count */
+.vote-count {
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+/* Result Message */
 .result-msg {
-  margin-top: 2rem;
+  background: #ecfdf5;
+  color: #047857;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
   font-size: 1.1rem;
-  color: #333;
+  width: 100%;
+}
+
+/* Live Results Section */
+.live-results {
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+.live-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 320px;
+  text-align: left;
+}
+
+.live-results li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.5rem;
+  background: #f8fafc;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.live-count {
+  color: #1d4ed8;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .voting-card {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .option-btn {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .option-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
 }
