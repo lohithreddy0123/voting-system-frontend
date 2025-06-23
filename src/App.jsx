@@ -71,6 +71,14 @@ function App() {
     }
   };
 
+  const handleRemoveVote = () => {
+    localStorage.removeItem('voted');
+    localStorage.removeItem('voter_name');
+    setVoted(false);
+    setSelectedId(null);
+    setName('');
+  };
+
   return (
     <div className="app-container">
       <div className="voting-card">
@@ -117,9 +125,18 @@ function App() {
         )}
 
         {voted && (
-          <div className="result-msg">
-            Thanks, <strong>{name}</strong>. Your vote has been recorded!
-          </div>
+          <>
+            <div className="result-msg">
+              Thanks, <strong>{name}</strong>. Your vote has been recorded!
+            </div>
+            <button
+              onClick={handleRemoveVote}
+              className="remove-vote-btn"
+              style={{ marginTop: '10px' }}
+            >
+              Remove My Vote
+            </button>
+          </>
         )}
 
         <div className="live-results">
