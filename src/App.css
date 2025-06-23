@@ -1,26 +1,19 @@
-.submit-btn {
+.vote-submit-btn {
   margin-top: 10px;
   padding: 10px 16px;
   background-color: #3f51b5;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   cursor: pointer;
   font-weight: bold;
 }
 
-.submit-btn:disabled {
+.vote-submit-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-
-
-
-
-
-
-/* Reset & base styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -28,7 +21,6 @@ body {
   color: #2c3e50;
 }
 
-/* App layout */
 .app-container {
   display: flex;
   justify-content: center;
@@ -37,7 +29,6 @@ body {
   min-height: 100vh;
 }
 
-/* Voting Card */
 .voting-card {
   background: #ffffff;
   padding: 2rem;
@@ -52,7 +43,6 @@ body {
   gap: 1.2rem;
 }
 
-/* Headings */
 h1 {
   margin: 0;
   font-size: 2rem;
@@ -62,16 +52,15 @@ h1 {
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 500;
   text-align: center;
   color: #334155;
 }
 
-/* Input */
 .name-input {
   width: 100%;
-  padding: 0.8rem;
+  padding: 1rem;
   font-size: 1rem;
   border: 1px solid #d1d5db;
   border-radius: 0.5rem;
@@ -79,7 +68,6 @@ h2 {
   color: #111827;
 }
 
-/* Options Grid */
 .options-grid {
   display: flex;
   flex-wrap: wrap;
@@ -88,7 +76,6 @@ h2 {
   width: 100%;
 }
 
-/* Option Button */
 .option-btn {
   padding: 0.8rem 1.2rem;
   font-size: 1rem;
@@ -110,13 +97,11 @@ h2 {
   color: #ffffff;
 }
 
-/* Vote Count */
 .vote-count {
   font-weight: bold;
   margin-left: 4px;
 }
 
-/* Result Message */
 .result-msg {
   background: #ecfdf5;
   color: #047857;
@@ -127,7 +112,6 @@ h2 {
   width: 100%;
 }
 
-/* Live Results Section */
 .live-results {
   width: 100%;
   text-align: center;
@@ -160,7 +144,6 @@ h2 {
   font-weight: bold;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
   .voting-card {
     padding: 1rem;

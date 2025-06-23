@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
-// ✅ Deployed backend API URL
 const API_BASE = 'https://fast-api-backend-srz0.onrender.com';
 
 function App() {
@@ -11,30 +10,31 @@ function App() {
   const [voted, setVoted] = useState(false);
   const [name, setName] = useState('');
 
-  // Load previous vote state from localStorage
   useEffect(() => {
+    // Restore voting state from localStorage
     const storedName = localStorage.getItem('voter_name');
-    const storedVote = localStorage.getItem('voted');
+    const hasVoted = localStorage.getItem('voted') === 'true';
 
-    if (storedName && storedVote === 'true') {
+    if (storedName && hasVoted) {
       setName(storedName);
       setVoted(true);
     }
 
-    // Fetch options from deployed backend
+    // Fetch voting options
     axios.get(`${API_BASE}/api/votes/`)
       .then(res => setOptions(res.data))
       .catch(err => {
-        console.error('Error fetching options', err);
-        alert("Failed to load voting options.");
+        console.error('Failed to load options:', err);
+        alert("Could not fetch voting options. Try again later.");
       });
 
-    // WebSocket for live updates (secure connection)
+    // Connect to WebSocket for real-time updates
     const socket = new WebSocket('wss://fast-api-backend-srz0.onrender.com/ws');
+
     socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === 'update') {
-        setOptions(data.payload);
+      const message = JSON.parse(event.data);
+      if (message.type === 'update') {
+        setOptions(message.payload);
       }
     };
 
@@ -43,17 +43,17 @@ function App() {
 
   const handleSubmit = async () => {
     if (!name.trim()) {
-      alert("Please enter your name.");
+      alert("Enter your name before voting.");
       return;
     }
 
     if (!selectedId) {
-      alert("Please select an option before submitting.");
+      alert("Please select an option.");
       return;
     }
 
     try {
-      const response = await axios.post(`${API_BASE}/api/votes/cast/`, {
+      const res = await axios.post(`${API_BASE}/api/votes/cast/`, {
         id: selectedId,
         name: name.trim(),
       });
@@ -63,30 +63,32 @@ function App() {
       localStorage.setItem('voter_name', name.trim());
 
       setOptions(prev =>
-        prev.map(opt => (opt.id === selectedId ? response.data : opt))
+        prev.map(opt => opt.id === selectedId ? res.data : opt)
       );
     } catch (err) {
-      console.error('Vote failed', err);
-      alert(err?.response?.data?.detail || "Error submitting vote.");
+      console.error('Vote failed:', err);
+      alert(err?.response?.data?.detail || "Something went wrong while voting.");
     }
   };
 
   return (
     <div className="app-container">
       <div className="voting-card">
-        <h1>🗳️ Real-Time Voting</h1>
+        <h1>Real-Time Voting</h1>
 
-        <p>Enter your name to vote:</p>
-        <input
-          type="text"
-          placeholder="Your Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          disabled={voted}
-          className="name-input"
-        />
+        <label>
+          <p>Your Name:</p>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            disabled={voted}
+            className="name-input"
+          />
+        </label>
 
-        <p>Select an option:</p>
+        <p>Select an Option:</p>
         <div className="options-grid">
           {options.length === 0 ? (
             <p>Loading options...</p>
@@ -108,7 +110,7 @@ function App() {
           <button
             className="submit-btn"
             onClick={handleSubmit}
-            disabled={!selectedId || !name.trim()}
+            disabled={!name.trim() || !selectedId}
           >
             Submit Vote
           </button>
@@ -116,12 +118,12 @@ function App() {
 
         {voted && (
           <div className="result-msg">
-            ✅ <strong>{name}</strong>, your vote has been submitted!
+            Thanks, <strong>{name}</strong>. Your vote has been recorded!
           </div>
         )}
 
         <div className="live-results">
-          <h2>📊 Live Results</h2>
+          <h2>Live Results</h2>
           <ul>
             {options.map(opt => (
               <li key={opt.id}>
